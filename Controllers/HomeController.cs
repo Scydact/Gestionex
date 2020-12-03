@@ -13,6 +13,7 @@ namespace Gestionex.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Administrador")]
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
@@ -20,6 +21,7 @@ namespace Gestionex.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Consulta")]
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
