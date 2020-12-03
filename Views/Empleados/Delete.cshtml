@@ -51,14 +51,28 @@
             @Html.DisplayFor(model => model.Departamento.Nombre)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.SolicitudArticulos)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SolicitudArticulos.Count)
+        </dd>
+
     </dl>
 
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
+<div class="form-actions no-color">
+    @if (Model.SolicitudArticulos.Count == 0)
+    {
+        <input type="submit" value="Delete" class="btn btn-default" /><span> | </span>
+    } else
+    {
+        <p>No se puede eliminar empleado hasta que se retiren sus solicitudes.</p>
+    }
+    @Html.ActionLink("Back to List", "Index")
+</div>
     }
 </div>

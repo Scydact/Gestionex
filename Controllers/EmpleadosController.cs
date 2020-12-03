@@ -53,7 +53,7 @@ namespace Gestionex.Controllers
         public ActionResult Create([Bind(Include = "Id,Cedula,Nombre,Apellido,Estado,DepartamentosId")] Empleados empleados)
         {
             if (!Utils.ValidarCedula(empleados.Cedula))
-                ModelState.AddModelError("Cedula", "Cedula no válida");
+                ModelState.AddModelError("Cedula", Utils.ValidarCedulaRazon(empleados.Cedula));
 
             if (ModelState.IsValid)
             {
@@ -90,7 +90,7 @@ namespace Gestionex.Controllers
         public ActionResult Edit([Bind(Include = "Id,Cedula,Nombre,Apellido,Estado,DepartamentosId")] Empleados empleados)
         {
             if (!Utils.ValidarCedula(empleados.Cedula))
-                ModelState.AddModelError("Cedula", "Cedula no válida");
+                ModelState.AddModelError("Cedula", Utils.ValidarCedulaRazon(empleados.Cedula));
 
             if (ModelState.IsValid)
             {

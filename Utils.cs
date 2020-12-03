@@ -9,13 +9,20 @@ namespace Gestionex
     {
         public static bool ValidarCedula(string pCedula)
         {
+            if (ValidarCedulaRazon(pCedula) == "")
+                return true;
+            return false;
+        }
+
+        public static string ValidarCedulaRazon(string pCedula)
+        {
             int vnTotal = 0;
             string vcCedula = pCedula.Replace("-", "");
             int pLongCed = vcCedula.Trim().Length;
             int[] digitoMult = new int[11] { 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1 };
 
             if (pLongCed < 11 || pLongCed > 11)
-                return false;
+                return $"Debe contener 11 dígitos (tiene {pLongCed})";
 
             for (int vDig = 1; vDig <= pLongCed; vDig++)
             {
@@ -27,9 +34,9 @@ namespace Gestionex
             }
 
             if (vnTotal % 10 == 0)
-                return true;
+                return "";
             else
-                return false;
+                return $"El digito de confirmación no es el correcto ({vnTotal % 10})";
         }
     }
 }

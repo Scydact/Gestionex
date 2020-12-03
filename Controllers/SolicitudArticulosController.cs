@@ -119,7 +119,6 @@ namespace Gestionex.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             SolicitudArticulos solicitudArticulos = db.SolicitudArticulos.Find(id);
-            db.SolicitudArticulos.Remove(solicitudArticulos);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

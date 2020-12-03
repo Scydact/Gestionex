@@ -53,6 +53,8 @@ namespace Gestionex.Controllers
             if (ModelState.IsValid)
             {
                 db.OrdenCompras.Add(ordenCompra);
+                Articulos articulo = db.Articulos.Where(a => a.Id == ordenCompra.SolicitudArticulosId).FirstOrDefault();
+                articulo.Existencia += ordenCompra.Cantidad;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -86,7 +88,12 @@ namespace Gestionex.Controllers
         {
             if (ModelState.IsValid)
             {
+                OrdenCompra originalOrdenCompra = db.OrdenCompras.AsNoTracking().Where(p => p.Id == ordenCompra.Id).FirstOrDefault();
+                int old = originalOrdenCompra.Cantidad;
+
                 db.Entry(ordenCompra).State = System.Data.Entity.EntityState.Modified;
+                Articulos articulo = db.Articulos.Where(a => a.Id == ordenCompra.SolicitudArticulosId).FirstOrDefault();
+                articulo.Existencia += -old + ordenCompra.Cantidad;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -115,6 +122,8 @@ namespace Gestionex.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             OrdenCompra ordenCompra = db.OrdenCompras.Find(id);
+            Articulos articulo = db.Articulos.Where(a => a.Id == ordenCompra.SolicitudArticulosId).FirstOrDefault();
+            articulo.Existencia -= ordenCompra.Cantidad;
             db.OrdenCompras.Remove(ordenCompra);
             db.SaveChanges();
             return RedirectToAction("Index");

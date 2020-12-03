@@ -32,9 +32,16 @@
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
+    <div class="form-actions no-color">
+        @if (Model.Empleados.Count == 0)
+        {
+            <input type="submit" value="Delete" class="btn btn-default" /><span> | </span>
+        }
+        else
+        {
+            <p>No se puede eliminar departamento hasta que se retiren todos sus empleados.</p>
+        }
+        @Html.ActionLink("Back to List", "Index")
+    </div>
     }
 </div>

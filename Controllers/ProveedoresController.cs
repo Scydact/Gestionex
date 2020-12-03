@@ -50,7 +50,7 @@ namespace Gestionex.Controllers
         public ActionResult Create([Bind(Include = "Id,Cedula,NombreComercial,Estado")] Proveedores proveedores)
         {
             if (!Utils.ValidarCedula(proveedores.Cedula))
-                ModelState.AddModelError("Cedula", "Cedula/RFC no válida");
+                ModelState.AddModelError("Cedula", Utils.ValidarCedulaRazon(proveedores.Cedula));
 
             if (ModelState.IsValid)
             {
@@ -85,7 +85,7 @@ namespace Gestionex.Controllers
         public ActionResult Edit([Bind(Include = "Id,Cedula,NombreComercial,Estado")] Proveedores proveedores)
         {
             if (!Utils.ValidarCedula(proveedores.Cedula))
-                ModelState.AddModelError("Cedula", "Cedula/RFC no válida");
+                ModelState.AddModelError("Cedula", Utils.ValidarCedulaRazon(proveedores.Cedula));
 
             if (ModelState.IsValid)
             {
