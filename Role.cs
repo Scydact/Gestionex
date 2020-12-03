@@ -26,5 +26,7 @@ namespace Gestionex
         {
             return new SelectList(ToDict(), "Key", "Value");
         }
+
+        public static readonly string NonObserver = $"{Administrador}, {Empleado}, {Proveedor}";
     }
 }

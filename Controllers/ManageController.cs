@@ -356,7 +356,7 @@ namespace Gestionex.Controllers
                 // THIS LINE IS IMPORTANT
                 var user = UserManager.FindById(User.Identity.GetUserId());
 
-                if (model.OldRole != model.NewRole)
+                if (user != null && model.OldRole != model.NewRole)
                 {
                     try
                     {
@@ -369,6 +369,8 @@ namespace Gestionex.Controllers
                     {
                         return View();
                     }
+
+                    SignInManager.SignIn(user, isPersistent: false, rememberBrowser: false);
                 }
             }
             return SetRole();

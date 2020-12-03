@@ -38,6 +38,7 @@ namespace Gestionex.Controllers
         }
 
         // GET: Departamentos/Create
+        [Authorize(Roles = "Administrador")]
         public ActionResult Create()
         {
             return View();
