@@ -54,7 +54,7 @@
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Nombre" Type="String" Nullable="false" />
-    <Property Name="Descripcion" Type="String" Nullable="false" />
+    <Property Name="Descripcion" Type="String" Nullable="true" />
     <NavigationProperty Name="Proveedor" Relationship="Model1.ProveedoresMarcas" FromRole="Marcas" ToRole="Proveedores" />
     <Property Name="ProveedoresId" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Articulos" Relationship="Model1.MarcasArticulos" FromRole="Marcas" ToRole="Articulos" />
@@ -67,7 +67,7 @@
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Nombre" Type="String" Nullable="false" />
     <Property Name="Existencia" Type="Int32" Nullable="false" />
-    <Property Name="Descripcion" Type="String" Nullable="false" />
+    <Property Name="Descripcion" Type="String" Nullable="true" />
     <NavigationProperty Name="UnidadMedida" Relationship="Model1.UnidadMedidaArticulos" FromRole="Articulos" ToRole="UnidadMedida" />
     <Property Name="UnidadMedidaId" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Marca" Relationship="Model1.MarcasArticulos" FromRole="Articulos" ToRole="Marcas" />
@@ -141,7 +141,7 @@
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Nombre" Type="String" Nullable="false" />
-    <Property Name="Descripcion" Type="String" Nullable="false" />
+    <Property Name="Descripcion" Type="String" Nullable="true" />
     <Property Name="Estado" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="Articulos" Relationship="Model1.UnidadMedidaArticulos" FromRole="UnidadMedida" ToRole="Articulos" />
   </EntityType>

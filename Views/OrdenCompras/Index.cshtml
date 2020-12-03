@@ -18,16 +18,16 @@
             @Html.DisplayNameFor(model => model.Fecha)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Estado)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Cantidad)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.CostoUnitario)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SolicitudArticulo.Id)
+            @Html.DisplayNameFor(model => model.Estado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SolicitudArticulo.Resumen)
         </th>
         <th></th>
     </tr>
@@ -41,16 +41,16 @@
             @Html.DisplayFor(modelItem => item.Fecha)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Estado)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Cantidad)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.CostoUnitario)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.SolicitudArticulo.Id)
+            @Html.DisplayFor(modelItem => item.Estado)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SolicitudArticulo.Resumen)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

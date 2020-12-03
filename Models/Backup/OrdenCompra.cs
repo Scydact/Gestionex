@@ -11,16 +11,27 @@ namespace Gestionex.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+
     public partial class OrdenCompra
     {
+        [DisplayName("No. de Orden")]
         public int Id { get; set; }
+        [DisplayName("No. de Orden")]
+        [Required]
         public int NumeroOrden { get; set; }
+        [Required]
+        [DisplayFormat(DataFormatString = "{0:dd/mm/yyyy}")]
         public System.DateTime Fecha { get; set; }
-        public bool Estado { get; set; }
+        [Required]
         public int Cantidad { get; set; }
+        [DisplayName("Costo por unidad")]
+        [Required]
         public double CostoUnitario { get; set; }
         public int SolicitudArticulosId { get; set; }
+        [DefaultValue(true)]
+        public bool Estado { get; set; }
     
         public virtual SolicitudArticulos SolicitudArticulo { get; set; }
     }

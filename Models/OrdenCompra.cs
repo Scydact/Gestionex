@@ -22,11 +22,13 @@ namespace Gestionex.Models
         [Required]
         public int NumeroOrden { get; set; }
         [Required]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public System.DateTime Fecha { get; set; }
         [Required]
         public int Cantidad { get; set; }
         [DisplayName("Costo por unidad")]
         [Required]
+        [DataType(DataType.Currency)]
         public double CostoUnitario { get; set; }
         public int SolicitudArticulosId { get; set; }
         [DefaultValue(true)]

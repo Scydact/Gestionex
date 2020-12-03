@@ -43,8 +43,8 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Cedula" Type="nvarchar(max)" Nullable="false" />
     <Property Name="NombreComercial" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Cedula" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Estado" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="Marcas">
@@ -53,7 +53,7 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Descripcion" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar(max)" Nullable="true" />
     <Property Name="ProveedoresId" Type="int" Nullable="false" />
     <Property Name="Estado" Type="bit" Nullable="false" />
   </EntityType>
@@ -64,10 +64,10 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Existencia" Type="int" Nullable="false" />
-    <Property Name="Estado" Type="bit" Nullable="false" />
-    <Property Name="Descripcion" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar(max)" Nullable="true" />
     <Property Name="UnidadMedidaId" Type="int" Nullable="false" />
     <Property Name="MarcasId" Type="int" Nullable="false" />
+    <Property Name="Estado" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="Departamentos">
     <Key>
@@ -82,11 +82,11 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Cedula" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Apellido" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Estado" Type="bit" Nullable="false" />
+    <Property Name="Cedula" Type="nvarchar(max)" Nullable="false" />
     <Property Name="DepartamentosId" Type="int" Nullable="false" />
+    <Property Name="Estado" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="SolicitudArticulos">
     <Key>
@@ -94,10 +94,10 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Fecha" Type="datetime" Nullable="false" />
-    <Property Name="Estado" Type="bit" Nullable="false" />
     <Property Name="Cantidad" Type="int" Nullable="false" />
     <Property Name="ArticulosId" Type="int" Nullable="false" />
     <Property Name="EmpleadosId" Type="int" Nullable="false" />
+    <Property Name="Estado" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="UnidadMedidas">
     <Key>
@@ -105,7 +105,7 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Descripcion" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar(max)" Nullable="true" />
     <Property Name="Estado" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="OrdenCompras">
@@ -115,10 +115,10 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="NumeroOrden" Type="int" Nullable="false" />
     <Property Name="Fecha" Type="datetime" Nullable="false" />
-    <Property Name="Estado" Type="bit" Nullable="false" />
     <Property Name="Cantidad" Type="int" Nullable="false" />
     <Property Name="CostoUnitario" Type="float" Nullable="false" />
     <Property Name="SolicitudArticulosId" Type="int" Nullable="false" />
+    <Property Name="Estado" Type="bit" Nullable="false" />
   </EntityType>
   <Association Name="ProveedoresMarcas">
     <End Role="Proveedores" Type="Model1.Store.Proveedores" Multiplicity="1" />

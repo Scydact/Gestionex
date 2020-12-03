@@ -11,20 +11,29 @@ namespace Gestionex.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+
     public partial class SolicitudArticulos
     {
         public SolicitudArticulos()
         {
             this.OrdenCompras = new HashSet<OrdenCompra>();
         }
-    
+
+        [DisplayName("Solicitud de artículo")]
         public int Id { get; set; }
+        [Required]
+        [DisplayFormat(DataFormatString = "{0:dd/mm/yyyy}")]
         public System.DateTime Fecha { get; set; }
-        public bool Estado { get; set; }
+        [Required]
         public int Cantidad { get; set; }
+        [Required]
         public int ArticulosId { get; set; }
+        [Required]
         public int EmpleadosId { get; set; }
+        [DefaultValue(true)]
+        public bool Estado { get; set; }
     
         public virtual Articulos Articulo { get; set; }
         public virtual Empleados Empleado { get; set; }

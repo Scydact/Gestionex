@@ -11,22 +11,28 @@ namespace Gestionex.Models
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class Empleados
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+
+    public partial class Proveedores
     {
-        public Empleados()
+        public Proveedores()
         {
-            this.SolicitudArticulos = new HashSet<SolicitudArticulos>();
+            this.Marcas = new HashSet<Marcas>();
         }
-    
+
+        [DisplayName("Proveedor")]
         public int Id { get; set; }
+        [DisplayName("Nombre comercial")]
+        [Required]
+        public string NombreComercial { get; set; }
+        [DisplayName("Cedula / RNC")]
+        [Required]
+        [RegularExpression(@"^[\d-]*$", ErrorMessage = "Solo debe contener números y guiones ('-')")]
         public string Cedula { get; set; }
-        public string Nombre { get; set; }
-        public string Apellido { get; set; }
+        [DefaultValue(true)]
         public bool Estado { get; set; }
-        public int DepartamentosId { get; set; }
     
-        public virtual Departamentos Departamento { get; set; }
-        public virtual ICollection<SolicitudArticulos> SolicitudArticulos { get; set; }
+        public virtual ICollection<Marcas> Marcas { get; set; }
     }
 }

@@ -48,8 +48,8 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Cedula" Type="nvarchar(max)" Nullable="false" />
     <Property Name="NombreComercial" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Cedula" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Estado" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="Marcas">
@@ -58,7 +58,7 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Descripcion" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar(max)" Nullable="true" />
     <Property Name="ProveedoresId" Type="int" Nullable="false" />
     <Property Name="Estado" Type="bit" Nullable="false" />
   </EntityType>
@@ -69,10 +69,10 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Existencia" Type="int" Nullable="false" />
-    <Property Name="Estado" Type="bit" Nullable="false" />
-    <Property Name="Descripcion" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar(max)" Nullable="true" />
     <Property Name="UnidadMedidaId" Type="int" Nullable="false" />
     <Property Name="MarcasId" Type="int" Nullable="false" />
+    <Property Name="Estado" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="Departamentos">
     <Key>
@@ -87,11 +87,11 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Cedula" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Apellido" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Estado" Type="bit" Nullable="false" />
+    <Property Name="Cedula" Type="nvarchar(max)" Nullable="false" />
     <Property Name="DepartamentosId" Type="int" Nullable="false" />
+    <Property Name="Estado" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="SolicitudArticulos">
     <Key>
@@ -99,10 +99,10 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Fecha" Type="datetime" Nullable="false" />
-    <Property Name="Estado" Type="bit" Nullable="false" />
     <Property Name="Cantidad" Type="int" Nullable="false" />
     <Property Name="ArticulosId" Type="int" Nullable="false" />
     <Property Name="EmpleadosId" Type="int" Nullable="false" />
+    <Property Name="Estado" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="UnidadMedidas">
     <Key>
@@ -110,7 +110,7 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Descripcion" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar(max)" Nullable="true" />
     <Property Name="Estado" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="OrdenCompras">
@@ -120,10 +120,10 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="NumeroOrden" Type="int" Nullable="false" />
     <Property Name="Fecha" Type="datetime" Nullable="false" />
-    <Property Name="Estado" Type="bit" Nullable="false" />
     <Property Name="Cantidad" Type="int" Nullable="false" />
     <Property Name="CostoUnitario" Type="float" Nullable="false" />
     <Property Name="SolicitudArticulosId" Type="int" Nullable="false" />
+    <Property Name="Estado" Type="bit" Nullable="false" />
   </EntityType>
   <Association Name="ProveedoresMarcas">
     <End Role="Proveedores" Type="Model1.Store.Proveedores" Multiplicity="1" />
@@ -267,7 +267,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nombre" Type="String" Nullable="false" />
-          <Property Name="Descripcion" Type="String" Nullable="false" />
+          <Property Name="Descripcion" Type="String" Nullable="true" />
           <NavigationProperty Name="Proveedor" Relationship="Model1.ProveedoresMarcas" FromRole="Marcas" ToRole="Proveedores" />
           <Property Name="ProveedoresId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Articulos" Relationship="Model1.MarcasArticulos" FromRole="Marcas" ToRole="Articulos" />
@@ -280,7 +280,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nombre" Type="String" Nullable="false" />
           <Property Name="Existencia" Type="Int32" Nullable="false" />
-          <Property Name="Descripcion" Type="String" Nullable="false" />
+          <Property Name="Descripcion" Type="String" Nullable="true" />
           <NavigationProperty Name="UnidadMedida" Relationship="Model1.UnidadMedidaArticulos" FromRole="Articulos" ToRole="UnidadMedida" />
           <Property Name="UnidadMedidaId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Marca" Relationship="Model1.MarcasArticulos" FromRole="Articulos" ToRole="Marcas" />
@@ -354,7 +354,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nombre" Type="String" Nullable="false" />
-          <Property Name="Descripcion" Type="String" Nullable="false" />
+          <Property Name="Descripcion" Type="String" Nullable="true" />
           <Property Name="Estado" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Articulos" Relationship="Model1.UnidadMedidaArticulos" FromRole="UnidadMedida" ToRole="Articulos" />
         </EntityType>
@@ -441,8 +441,8 @@
       <EntityTypeMapping TypeName="IsTypeOf(Model1.Proveedores)">
         <MappingFragment StoreEntitySet="Proveedores">
           <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Cedula" ColumnName="Cedula" />
           <ScalarProperty Name="NombreComercial" ColumnName="NombreComercial" />
+          <ScalarProperty Name="Cedula" ColumnName="Cedula" />
           <ScalarProperty Name="Estado" ColumnName="Estado" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -464,10 +464,10 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Nombre" ColumnName="Nombre" />
           <ScalarProperty Name="Existencia" ColumnName="Existencia" />
-          <ScalarProperty Name="Estado" ColumnName="Estado" />
           <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
           <ScalarProperty Name="UnidadMedidaId" ColumnName="UnidadMedidaId" />
           <ScalarProperty Name="MarcasId" ColumnName="MarcasId" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -484,11 +484,11 @@
       <EntityTypeMapping TypeName="IsTypeOf(Model1.Empleados)">
         <MappingFragment StoreEntitySet="Empleados">
           <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Cedula" ColumnName="Cedula" />
           <ScalarProperty Name="Nombre" ColumnName="Nombre" />
           <ScalarProperty Name="Apellido" ColumnName="Apellido" />
-          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="Cedula" ColumnName="Cedula" />
           <ScalarProperty Name="DepartamentosId" ColumnName="DepartamentosId" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -497,10 +497,10 @@
         <MappingFragment StoreEntitySet="SolicitudArticulos">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Fecha" ColumnName="Fecha" />
-          <ScalarProperty Name="Estado" ColumnName="Estado" />
           <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
           <ScalarProperty Name="ArticulosId" ColumnName="ArticulosId" />
           <ScalarProperty Name="EmpleadosId" ColumnName="EmpleadosId" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -520,10 +520,10 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="NumeroOrden" ColumnName="NumeroOrden" />
           <ScalarProperty Name="Fecha" ColumnName="Fecha" />
-          <ScalarProperty Name="Estado" ColumnName="Estado" />
           <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
           <ScalarProperty Name="CostoUnitario" ColumnName="CostoUnitario" />
           <ScalarProperty Name="SolicitudArticulosId" ColumnName="SolicitudArticulosId" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -547,7 +547,7 @@
     </edmx:Options>
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="411ce401fceb49dcb0a3e2d62c397d39" Name="Diagram1" ZoomLevel="61">
+      <Diagram DiagramId="411ce401fceb49dcb0a3e2d62c397d39" Name="Diagram1" ZoomLevel="80">
         <EntityTypeShape EntityType="Model1.Proveedores" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="Model1.Marcas" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="Model1.Articulos" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />

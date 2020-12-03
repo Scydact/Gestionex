@@ -24,6 +24,7 @@ namespace Gestionex.Models
         [DisplayName("Solicitud de artículo")]
         public int Id { get; set; }
         [Required]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public System.DateTime Fecha { get; set; }
         [Required]
         public int Cantidad { get; set; }
@@ -33,6 +34,8 @@ namespace Gestionex.Models
         public int EmpleadosId { get; set; }
         [DefaultValue(true)]
         public bool Estado { get; set; }
+
+        public string Resumen { get => $"{Articulo.Nombre} ({Cantidad}) - {Empleado.Nombre}"; }
     
         public virtual Articulos Articulo { get; set; }
         public virtual Empleados Empleado { get; set; }

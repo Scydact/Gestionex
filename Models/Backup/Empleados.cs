@@ -11,24 +11,31 @@ namespace Gestionex.Models
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class Articulos
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+
+    public partial class Empleados
     {
-        public Articulos()
+        public Empleados()
         {
             this.SolicitudArticulos = new HashSet<SolicitudArticulos>();
         }
-    
+
+        [DisplayName("Empleado")]
         public int Id { get; set; }
+        [Required]
         public string Nombre { get; set; }
-        public int Existencia { get; set; }
+        [Required]
+        public string Apellido { get; set; }
+        [Required]
+        [RegularExpression(@"^[\d-]*$", ErrorMessage = "Solo debe contener números y guiones ('-')")]
+        public string Cedula { get; set; }
+        [Required]
+        public int DepartamentosId { get; set; }
+        [DefaultValue(true)]
         public bool Estado { get; set; }
-        public string Descripcion { get; set; }
-        public int UnidadMedidaId { get; set; }
-        public int MarcasId { get; set; }
     
-        public virtual UnidadMedida UnidadMedida { get; set; }
-        public virtual Marcas Marca { get; set; }
+        public virtual Departamentos Departamento { get; set; }
         public virtual ICollection<SolicitudArticulos> SolicitudArticulos { get; set; }
     }
 }

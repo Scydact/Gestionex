@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<Gestionex.Models.Empleados>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Empleados";
 }
 
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Crear nuevo", "Create") | @Html.ActionLink("Exportar Excel", "ExportarExcel")
 </p>
 <table class="table">
     <tr>

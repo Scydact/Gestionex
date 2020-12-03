@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -123,6 +124,34 @@ namespace Gestionex.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+
+        public ActionResult ExportarExcel()
+        {
+            string filename = "Departamentos.csv";
+            string filepath = @"C:\tmp\" + filename;
+            StreamWriter sw = new StreamWriter(filepath);
+            sw.WriteLine("id, nombre, estado"); //Encabezado 
+            foreach (var i in db.Empleados.ToList())
+            {
+                string[] elementos = { i.Id.ToString(), i.Nombre, i.Estado.ToString() };
+                sw.WriteLine(string.Join(",", elementos));
+            }
+            sw.Close();
+
+            byte[] filedata = System.IO.File.ReadAllBytes(filepath);
+            string contentType = MimeMapping.GetMimeMapping(filepath);
+
+            var cd = new System.Net.Mime.ContentDisposition
+            {
+                FileName = filename,
+                Inline = false,
+            };
+
+            Response.AppendHeader("Content-Disposition", cd.ToString());
+
+            return File(filedata, contentType);
         }
     }
 }

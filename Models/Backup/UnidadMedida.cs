@@ -11,18 +11,25 @@ namespace Gestionex.Models
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class Departamentos
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+
+    public partial class UnidadMedida
     {
-        public Departamentos()
+        public UnidadMedida()
         {
-            this.Empleados = new HashSet<Empleados>();
+            this.Articulos = new HashSet<Articulos>();
         }
-    
+
+        [DisplayName("Unidad de medida")]
         public int Id { get; set; }
+        [DisplayName("Unidad de medida")]
+        [Required]
         public string Nombre { get; set; }
+        public string Descripcion { get; set; }
+        [DefaultValue(true)]
         public bool Estado { get; set; }
     
-        public virtual ICollection<Empleados> Empleados { get; set; }
+        public virtual ICollection<Articulos> Articulos { get; set; }
     }
 }

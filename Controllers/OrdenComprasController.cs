@@ -7,7 +7,6 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Gestionex.Models;
-using EntityState = System.Data.Entity.EntityState;
 
 namespace Gestionex.Controllers
 {
@@ -40,7 +39,7 @@ namespace Gestionex.Controllers
         // GET: OrdenCompras/Create
         public ActionResult Create()
         {
-            ViewBag.SolicitudArticulosId = new SelectList(db.SolicitudArticulos, "Id", "Id");
+            ViewBag.SolicitudArticulosId = new SelectList(db.SolicitudArticulos, "Id", "Resumen");
             return View();
         }
 
@@ -49,7 +48,7 @@ namespace Gestionex.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,NumeroOrden,Fecha,Estado,Cantidad,CostoUnitario,SolicitudArticulosId")] OrdenCompra ordenCompra)
+        public ActionResult Create([Bind(Include = "Id,NumeroOrden,Fecha,Cantidad,CostoUnitario,SolicitudArticulosId,Estado")] OrdenCompra ordenCompra)
         {
             if (ModelState.IsValid)
             {
@@ -58,7 +57,7 @@ namespace Gestionex.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.SolicitudArticulosId = new SelectList(db.SolicitudArticulos, "Id", "Id", ordenCompra.SolicitudArticulosId);
+            ViewBag.SolicitudArticulosId = new SelectList(db.SolicitudArticulos, "Id", "Resumen", ordenCompra.SolicitudArticulosId);
             return View(ordenCompra);
         }
 
@@ -74,7 +73,7 @@ namespace Gestionex.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.SolicitudArticulosId = new SelectList(db.SolicitudArticulos, "Id", "Id", ordenCompra.SolicitudArticulosId);
+            ViewBag.SolicitudArticulosId = new SelectList(db.SolicitudArticulos, "Id", "Resumen", ordenCompra.SolicitudArticulosId);
             return View(ordenCompra);
         }
 
@@ -83,15 +82,15 @@ namespace Gestionex.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,NumeroOrden,Fecha,Estado,Cantidad,CostoUnitario,SolicitudArticulosId")] OrdenCompra ordenCompra)
+        public ActionResult Edit([Bind(Include = "Id,NumeroOrden,Fecha,Cantidad,CostoUnitario,SolicitudArticulosId,Estado")] OrdenCompra ordenCompra)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(ordenCompra).State = EntityState.Modified;
+                db.Entry(ordenCompra).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.SolicitudArticulosId = new SelectList(db.SolicitudArticulos, "Id", "Id", ordenCompra.SolicitudArticulosId);
+            ViewBag.SolicitudArticulosId = new SelectList(db.SolicitudArticulos, "Id", "Resumen", ordenCompra.SolicitudArticulosId);
             return View(ordenCompra);
         }
 
