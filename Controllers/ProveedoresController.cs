@@ -49,6 +49,9 @@ namespace Gestionex.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Cedula,NombreComercial,Estado")] Proveedores proveedores)
         {
+            if (!Utils.ValidarCedula(proveedores.Cedula))
+                ModelState.AddModelError("Cedula", "Cedula/RFC no válida");
+
             if (ModelState.IsValid)
             {
                 db.Proveedores.Add(proveedores);
@@ -81,6 +84,9 @@ namespace Gestionex.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Cedula,NombreComercial,Estado")] Proveedores proveedores)
         {
+            if (!Utils.ValidarCedula(proveedores.Cedula))
+                ModelState.AddModelError("Cedula", "Cedula/RFC no válida");
+
             if (ModelState.IsValid)
             {
                 db.Entry(proveedores).State = EntityState.Modified;

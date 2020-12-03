@@ -52,6 +52,9 @@ namespace Gestionex.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Cedula,Nombre,Apellido,Estado,DepartamentosId")] Empleados empleados)
         {
+            if (!Utils.ValidarCedula(empleados.Cedula))
+                ModelState.AddModelError("Cedula", "Cedula no válida");
+
             if (ModelState.IsValid)
             {
                 db.Empleados.Add(empleados);
@@ -86,6 +89,9 @@ namespace Gestionex.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Cedula,Nombre,Apellido,Estado,DepartamentosId")] Empleados empleados)
         {
+            if (!Utils.ValidarCedula(empleados.Cedula))
+                ModelState.AddModelError("Cedula", "Cedula no válida");
+
             if (ModelState.IsValid)
             {
                 db.Entry(empleados).State = EntityState.Modified;
