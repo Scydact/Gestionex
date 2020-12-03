@@ -83,5 +83,16 @@
                     }
                 }*@
         </dd>
+        <dt>Cambiar tipo de cuenta:</dt>
+        <dd>
+            <p>
+                <span>Usted es un </span>
+                <span>@(string.IsNullOrEmpty(Model.UserRole) ? "Observador" : Model.UserRole)</span>
+                <span>
+                    [ @Html.ActionLink("Cambiar rol", "SetRole") ]
+                </span>
+            </p>
+
+        </dd>
     </dl>
 </div>

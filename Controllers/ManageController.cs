@@ -70,7 +70,8 @@ namespace Gestionex.Controllers
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
+                UserRole = string.Join(", ", UserManager.GetRoles(userId))
             };
             return View(model);
         }
@@ -333,7 +334,48 @@ namespace Gestionex.Controllers
             base.Dispose(disposing);
         }
 
-#region Aplicaciones auxiliares
+        public ActionResult SetRole()
+        {
+            var userId = User.Identity.GetUserId();
+            var role = UserManager.GetRoles(userId).FirstOrDefault();
+            var model = new SetRoleViewModel
+            {
+                OldRole = role,
+                NewRole = role
+            };
+            return View(model);
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SetRole(SetRoleViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                // THIS LINE IS IMPORTANT
+                var user = UserManager.FindById(User.Identity.GetUserId());
+
+                if (model.OldRole != model.NewRole)
+                {
+                    try
+                    {
+                        if (!string.IsNullOrEmpty(model.OldRole))
+                            UserManager.RemoveFromRole(user.Id, model.OldRole);
+                        if (!string.IsNullOrEmpty(model.OldRole))
+                            UserManager.AddToRole(user.Id, model.NewRole);
+                    }
+                    catch(System.InvalidOperationException)
+                    {
+                        return View();
+                    }
+                }
+            }
+            return SetRole();
+        }
+
+
+        #region Aplicaciones auxiliares
         // Se usan para protección XSRF al agregar inicios de sesión externos
         private const string XsrfKey = "XsrfId";
 

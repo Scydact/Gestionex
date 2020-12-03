@@ -156,6 +156,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Role.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ArticulosController.cs" />
     <Compile Include="Controllers\DepartamentosController.cs" />
@@ -327,6 +328,7 @@
     <Content Include="Views\OrdenCompras\Details.cshtml" />
     <Content Include="Views\OrdenCompras\Edit.cshtml" />
     <Content Include="Views\OrdenCompras\Index.cshtml" />
+    <Content Include="Views\Manage\SetRole.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
