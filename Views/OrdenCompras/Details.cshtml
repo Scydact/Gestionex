@@ -1,0 +1,66 @@
+﻿@model Gestionex.Models.OrdenCompra
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>OrdenCompra</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NumeroOrden)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumeroOrden)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fecha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fecha)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Estado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Estado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cantidad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cantidad)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CostoUnitario)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CostoUnitario)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SolicitudArticulo.Id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SolicitudArticulo.Id)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

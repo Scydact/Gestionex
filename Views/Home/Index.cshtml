@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Gestionex™</h1>
+    <h2 class="lead">Gestionex™, the best software for administration.</h2>
+</div>
+
+<div class="row">
+    <h1 class="servicios"> Nuestros Servicios</h1>
+    <div class="col-md-4">
+        <h2>Gestion de Empleados</h2>
+        <p>
+            Gestionex™ es la mejor opcion para la gestion de empleados.
+        </p>
+        @Html.ActionLink("Manejar empleados »", "Index", "Empleados", routeValues: null, htmlAttributes: new { @class = "btn btn-default"})
+    </div>
+    <div class="col-md-4">
+        <h2>Gestion de Articulos</h2>
+        <p>Gestionex™ es la mejor opcion para la gestion de Articulos</p>
+        @Html.ActionLink("Manejar Artículos »", "Index", "Articulos", routeValues: null, htmlAttributes: new { @class = "btn btn-default" })
+    </div>
+    <div class="col-md-4">
+        <h2>Orden de Compras</h2>
+        <p>Ordena articulos de la manera mas sencilla y rapida, con la mejor gestion de base de datos del planeta.</p>
+        @Html.ActionLink("Crear una orden »", "Index", "OrdenCompras", routeValues: null, htmlAttributes: new { @class = "btn btn-default" })
+    </div>
+</div>

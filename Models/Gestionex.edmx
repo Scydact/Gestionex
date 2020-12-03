@@ -1,0 +1,569 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="Model1StoreContainer">
+    <EntitySet Name="Proveedores" EntityType="Model1.Store.Proveedores" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Marcas" EntityType="Model1.Store.Marcas" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Articulos" EntityType="Model1.Store.Articulos" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Departamentos" EntityType="Model1.Store.Departamentos" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Empleados" EntityType="Model1.Store.Empleados" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SolicitudArticulos" EntityType="Model1.Store.SolicitudArticulos" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UnidadMedidas" EntityType="Model1.Store.UnidadMedidas" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="OrdenCompras" EntityType="Model1.Store.OrdenCompras" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="ProveedoresMarcas" Association="Model1.Store.ProveedoresMarcas">
+      <End Role="Proveedores" EntitySet="Proveedores" />
+      <End Role="Marcas" EntitySet="Marcas" />
+    </AssociationSet>
+    <AssociationSet Name="DepartamentosEmpleados" Association="Model1.Store.DepartamentosEmpleados">
+      <End Role="Departamentos" EntitySet="Departamentos" />
+      <End Role="Empleados" EntitySet="Empleados" />
+    </AssociationSet>
+    <AssociationSet Name="UnidadMedidaArticulos" Association="Model1.Store.UnidadMedidaArticulos">
+      <End Role="UnidadMedida" EntitySet="UnidadMedidas" />
+      <End Role="Articulos" EntitySet="Articulos" />
+    </AssociationSet>
+    <AssociationSet Name="MarcasArticulos" Association="Model1.Store.MarcasArticulos">
+      <End Role="Marcas" EntitySet="Marcas" />
+      <End Role="Articulos" EntitySet="Articulos" />
+    </AssociationSet>
+    <AssociationSet Name="ArticulosSolicitudArticulos" Association="Model1.Store.ArticulosSolicitudArticulos">
+      <End Role="Articulos" EntitySet="Articulos" />
+      <End Role="SolicitudArticulos" EntitySet="SolicitudArticulos" />
+    </AssociationSet>
+    <AssociationSet Name="EmpleadosSolicitudArticulos" Association="Model1.Store.EmpleadosSolicitudArticulos">
+      <End Role="Empleados" EntitySet="Empleados" />
+      <End Role="SolicitudArticulos" EntitySet="SolicitudArticulos" />
+    </AssociationSet>
+    <AssociationSet Name="SolicitudArticulosOrdenCompra" Association="Model1.Store.SolicitudArticulosOrdenCompra">
+      <End Role="SolicitudArticulos" EntitySet="SolicitudArticulos" />
+      <End Role="OrdenCompra" EntitySet="OrdenCompras" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Proveedores">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Cedula" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="NombreComercial" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Estado" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Marcas">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ProveedoresId" Type="int" Nullable="false" />
+    <Property Name="Estado" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Articulos">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Existencia" Type="int" Nullable="false" />
+    <Property Name="Estado" Type="bit" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="UnidadMedidaId" Type="int" Nullable="false" />
+    <Property Name="MarcasId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Departamentos">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Estado" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Empleados">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Cedula" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Apellido" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Estado" Type="bit" Nullable="false" />
+    <Property Name="DepartamentosId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SolicitudArticulos">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Fecha" Type="datetime" Nullable="false" />
+    <Property Name="Estado" Type="bit" Nullable="false" />
+    <Property Name="Cantidad" Type="int" Nullable="false" />
+    <Property Name="ArticulosId" Type="int" Nullable="false" />
+    <Property Name="EmpleadosId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UnidadMedidas">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Estado" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="OrdenCompras">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NumeroOrden" Type="int" Nullable="false" />
+    <Property Name="Fecha" Type="datetime" Nullable="false" />
+    <Property Name="Estado" Type="bit" Nullable="false" />
+    <Property Name="Cantidad" Type="int" Nullable="false" />
+    <Property Name="CostoUnitario" Type="float" Nullable="false" />
+    <Property Name="SolicitudArticulosId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="ProveedoresMarcas">
+    <End Role="Proveedores" Type="Model1.Store.Proveedores" Multiplicity="1" />
+    <End Role="Marcas" Type="Model1.Store.Marcas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Proveedores">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Marcas">
+        <PropertyRef Name="ProveedoresId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DepartamentosEmpleados">
+    <End Role="Departamentos" Type="Model1.Store.Departamentos" Multiplicity="1" />
+    <End Role="Empleados" Type="Model1.Store.Empleados" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Departamentos">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Empleados">
+        <PropertyRef Name="DepartamentosId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UnidadMedidaArticulos">
+    <End Role="UnidadMedida" Type="Model1.Store.UnidadMedidas" Multiplicity="1" />
+    <End Role="Articulos" Type="Model1.Store.Articulos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UnidadMedida">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Articulos">
+        <PropertyRef Name="UnidadMedidaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MarcasArticulos">
+    <End Role="Marcas" Type="Model1.Store.Marcas" Multiplicity="1" />
+    <End Role="Articulos" Type="Model1.Store.Articulos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Marcas">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Articulos">
+        <PropertyRef Name="MarcasId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ArticulosSolicitudArticulos">
+    <End Role="Articulos" Type="Model1.Store.Articulos" Multiplicity="1" />
+    <End Role="SolicitudArticulos" Type="Model1.Store.SolicitudArticulos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Articulos">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SolicitudArticulos">
+        <PropertyRef Name="ArticulosId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="EmpleadosSolicitudArticulos">
+    <End Role="Empleados" Type="Model1.Store.Empleados" Multiplicity="1" />
+    <End Role="SolicitudArticulos" Type="Model1.Store.SolicitudArticulos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Empleados">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SolicitudArticulos">
+        <PropertyRef Name="EmpleadosId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SolicitudArticulosOrdenCompra">
+    <End Role="SolicitudArticulos" Type="Model1.Store.SolicitudArticulos" Multiplicity="1" />
+    <End Role="OrdenCompra" Type="Model1.Store.OrdenCompras" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SolicitudArticulos">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OrdenCompra">
+        <PropertyRef Name="SolicitudArticulosId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Proveedores" EntityType="Model1.Proveedores" />
+          <EntitySet Name="Marcas" EntityType="Model1.Marcas" />
+          <EntitySet Name="Articulos" EntityType="Model1.Articulos" />
+          <AssociationSet Name="ProveedoresMarcas" Association="Model1.ProveedoresMarcas">
+            <End Role="Proveedores" EntitySet="Proveedores" />
+            <End Role="Marcas" EntitySet="Marcas" />
+          </AssociationSet>
+          <EntitySet Name="Departamentos" EntityType="Model1.Departamentos" />
+          <EntitySet Name="Empleados" EntityType="Model1.Empleados" />
+          <AssociationSet Name="DepartamentosEmpleados" Association="Model1.DepartamentosEmpleados">
+            <End Role="Departamentos" EntitySet="Departamentos" />
+            <End Role="Empleados" EntitySet="Empleados" />
+          </AssociationSet>
+          <EntitySet Name="SolicitudArticulos" EntityType="Model1.SolicitudArticulos" />
+          <EntitySet Name="UnidadMedidas" EntityType="Model1.UnidadMedida" />
+          <EntitySet Name="OrdenCompras" EntityType="Model1.OrdenCompra" />
+          <AssociationSet Name="UnidadMedidaArticulos" Association="Model1.UnidadMedidaArticulos">
+            <End Role="UnidadMedida" EntitySet="UnidadMedidas" />
+            <End Role="Articulos" EntitySet="Articulos" />
+          </AssociationSet>
+          <AssociationSet Name="MarcasArticulos" Association="Model1.MarcasArticulos">
+            <End Role="Marcas" EntitySet="Marcas" />
+            <End Role="Articulos" EntitySet="Articulos" />
+          </AssociationSet>
+          <AssociationSet Name="ArticulosSolicitudArticulos" Association="Model1.ArticulosSolicitudArticulos">
+            <End Role="Articulos" EntitySet="Articulos" />
+            <End Role="SolicitudArticulos" EntitySet="SolicitudArticulos" />
+          </AssociationSet>
+          <AssociationSet Name="EmpleadosSolicitudArticulos" Association="Model1.EmpleadosSolicitudArticulos">
+            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="SolicitudArticulos" EntitySet="SolicitudArticulos" />
+          </AssociationSet>
+          <AssociationSet Name="SolicitudArticulosOrdenCompra" Association="Model1.SolicitudArticulosOrdenCompra">
+            <End Role="SolicitudArticulos" EntitySet="SolicitudArticulos" />
+            <End Role="OrdenCompra" EntitySet="OrdenCompras" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Proveedores">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreComercial" Type="String" Nullable="false" />
+          <Property Name="Cedula" Type="String" Nullable="false" />
+          <NavigationProperty Name="Marcas" Relationship="Model1.ProveedoresMarcas" FromRole="Proveedores" ToRole="Marcas" />
+          <Property Name="Estado" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Marcas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" />
+          <Property Name="Descripcion" Type="String" Nullable="false" />
+          <NavigationProperty Name="Proveedor" Relationship="Model1.ProveedoresMarcas" FromRole="Marcas" ToRole="Proveedores" />
+          <Property Name="ProveedoresId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Articulos" Relationship="Model1.MarcasArticulos" FromRole="Marcas" ToRole="Articulos" />
+          <Property Name="Estado" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Articulos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" />
+          <Property Name="Existencia" Type="Int32" Nullable="false" />
+          <Property Name="Descripcion" Type="String" Nullable="false" />
+          <NavigationProperty Name="UnidadMedida" Relationship="Model1.UnidadMedidaArticulos" FromRole="Articulos" ToRole="UnidadMedida" />
+          <Property Name="UnidadMedidaId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Marca" Relationship="Model1.MarcasArticulos" FromRole="Articulos" ToRole="Marcas" />
+          <Property Name="MarcasId" Type="Int32" Nullable="false" />
+          <Property Name="Estado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="SolicitudArticulos" Relationship="Model1.ArticulosSolicitudArticulos" FromRole="Articulos" ToRole="SolicitudArticulos" />
+        </EntityType>
+        <Association Name="ProveedoresMarcas">
+          <End Type="Model1.Proveedores" Role="Proveedores" Multiplicity="1" />
+          <End Type="Model1.Marcas" Role="Marcas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proveedores">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Marcas">
+              <PropertyRef Name="ProveedoresId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Departamentos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" />
+          <Property Name="Estado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Empleados" Relationship="Model1.DepartamentosEmpleados" FromRole="Departamentos" ToRole="Empleados" />
+        </EntityType>
+        <EntityType Name="Empleados">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" />
+          <Property Name="Apellido" Type="String" Nullable="false" />
+          <Property Name="Cedula" Type="String" Nullable="false" />
+          <NavigationProperty Name="Departamento" Relationship="Model1.DepartamentosEmpleados" FromRole="Empleados" ToRole="Departamentos" />
+          <Property Name="DepartamentosId" Type="Int32" Nullable="false" />
+          <Property Name="Estado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="SolicitudArticulos" Relationship="Model1.EmpleadosSolicitudArticulos" FromRole="Empleados" ToRole="SolicitudArticulos" />
+        </EntityType>
+        <Association Name="DepartamentosEmpleados">
+          <End Type="Model1.Departamentos" Role="Departamentos" Multiplicity="1" />
+          <End Type="Model1.Empleados" Role="Empleados" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departamentos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Empleados">
+              <PropertyRef Name="DepartamentosId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SolicitudArticulos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" />
+          <Property Name="Cantidad" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Articulo" Relationship="Model1.ArticulosSolicitudArticulos" FromRole="SolicitudArticulos" ToRole="Articulos" />
+          <Property Name="ArticulosId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Empleado" Relationship="Model1.EmpleadosSolicitudArticulos" FromRole="SolicitudArticulos" ToRole="Empleados" />
+          <Property Name="EmpleadosId" Type="Int32" Nullable="false" />
+          <Property Name="Estado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="OrdenCompras" Relationship="Model1.SolicitudArticulosOrdenCompra" FromRole="SolicitudArticulos" ToRole="OrdenCompra" />
+        </EntityType>
+        <EntityType Name="UnidadMedida">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" />
+          <Property Name="Descripcion" Type="String" Nullable="false" />
+          <Property Name="Estado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Articulos" Relationship="Model1.UnidadMedidaArticulos" FromRole="UnidadMedida" ToRole="Articulos" />
+        </EntityType>
+        <EntityType Name="OrdenCompra">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NumeroOrden" Type="Int32" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" />
+          <Property Name="Cantidad" Type="Int32" Nullable="false" />
+          <Property Name="CostoUnitario" Type="Double" Nullable="false" />
+          <NavigationProperty Name="SolicitudArticulo" Relationship="Model1.SolicitudArticulosOrdenCompra" FromRole="OrdenCompra" ToRole="SolicitudArticulos" />
+          <Property Name="SolicitudArticulosId" Type="Int32" Nullable="false" />
+          <Property Name="Estado" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <Association Name="UnidadMedidaArticulos">
+          <End Type="Model1.UnidadMedida" Role="UnidadMedida" Multiplicity="1" />
+          <End Type="Model1.Articulos" Role="Articulos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UnidadMedida">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Articulos">
+              <PropertyRef Name="UnidadMedidaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MarcasArticulos">
+          <End Type="Model1.Marcas" Role="Marcas" Multiplicity="1" />
+          <End Type="Model1.Articulos" Role="Articulos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Marcas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Articulos">
+              <PropertyRef Name="MarcasId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ArticulosSolicitudArticulos">
+          <End Type="Model1.Articulos" Role="Articulos" Multiplicity="1" />
+          <End Type="Model1.SolicitudArticulos" Role="SolicitudArticulos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Articulos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SolicitudArticulos">
+              <PropertyRef Name="ArticulosId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="EmpleadosSolicitudArticulos">
+          <End Type="Model1.Empleados" Role="Empleados" Multiplicity="1" />
+          <End Type="Model1.SolicitudArticulos" Role="SolicitudArticulos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SolicitudArticulos">
+              <PropertyRef Name="EmpleadosId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SolicitudArticulosOrdenCompra">
+          <End Type="Model1.SolicitudArticulos" Role="SolicitudArticulos" Multiplicity="1" />
+          <End Type="Model1.OrdenCompra" Role="OrdenCompra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SolicitudArticulos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrdenCompra">
+              <PropertyRef Name="SolicitudArticulosId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Model1StoreContainer" CdmEntityContainer="Model1Container">
+    <EntitySetMapping Name="Proveedores">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Proveedores)">
+        <MappingFragment StoreEntitySet="Proveedores">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Cedula" ColumnName="Cedula" />
+          <ScalarProperty Name="NombreComercial" ColumnName="NombreComercial" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Marcas">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Marcas)">
+        <MappingFragment StoreEntitySet="Marcas">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="ProveedoresId" ColumnName="ProveedoresId" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Articulos">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Articulos)">
+        <MappingFragment StoreEntitySet="Articulos">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Existencia" ColumnName="Existencia" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="UnidadMedidaId" ColumnName="UnidadMedidaId" />
+          <ScalarProperty Name="MarcasId" ColumnName="MarcasId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Departamentos">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Departamentos)">
+        <MappingFragment StoreEntitySet="Departamentos">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Empleados">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Empleados)">
+        <MappingFragment StoreEntitySet="Empleados">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Cedula" ColumnName="Cedula" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="DepartamentosId" ColumnName="DepartamentosId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SolicitudArticulos">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.SolicitudArticulos)">
+        <MappingFragment StoreEntitySet="SolicitudArticulos">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+          <ScalarProperty Name="ArticulosId" ColumnName="ArticulosId" />
+          <ScalarProperty Name="EmpleadosId" ColumnName="EmpleadosId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UnidadMedidas">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.UnidadMedida)">
+        <MappingFragment StoreEntitySet="UnidadMedidas">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrdenCompras">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.OrdenCompra)">
+        <MappingFragment StoreEntitySet="OrdenCompras">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="NumeroOrden" ColumnName="NumeroOrden" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+          <ScalarProperty Name="CostoUnitario" ColumnName="CostoUnitario" />
+          <ScalarProperty Name="SolicitudArticulosId" ColumnName="SolicitudArticulosId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="411ce401fceb49dcb0a3e2d62c397d39" Name="Diagram1" ZoomLevel="61">
+        <EntityTypeShape EntityType="Model1.Proveedores" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model1.Marcas" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model1.Articulos" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model1.Departamentos" Width="1.5" PointX="7.5" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model1.Empleados" Width="1.5" PointX="7.5" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model1.SolicitudArticulos" Width="1.5" PointX="7.5" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model1.UnidadMedida" Width="1.5" PointX="5.25" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model1.OrdenCompra" Width="1.5" PointX="9.75" PointY="1.125" IsExpanded="true" />
+        <AssociationConnector Association="Model1.ProveedoresMarcas" ManuallyRouted="false" />
+        <AssociationConnector Association="Model1.DepartamentosEmpleados" ManuallyRouted="false" />
+        <AssociationConnector Association="Model1.UnidadMedidaArticulos" ManuallyRouted="false" />
+        <AssociationConnector Association="Model1.MarcasArticulos" ManuallyRouted="false" />
+        <AssociationConnector Association="Model1.ArticulosSolicitudArticulos" ManuallyRouted="false" />
+        <AssociationConnector Association="Model1.EmpleadosSolicitudArticulos" ManuallyRouted="false" />
+        <AssociationConnector Association="Model1.SolicitudArticulosOrdenCompra" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
