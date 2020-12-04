@@ -53,7 +53,9 @@ namespace Gestionex.Controllers
             if (ModelState.IsValid)
             {
                 db.OrdenCompras.Add(ordenCompra);
-                Articulos articulo = db.Articulos.Where(a => a.Id == ordenCompra.SolicitudArticulosId).FirstOrDefault();
+                SolicitudArticulos solicitudArticulo = db.SolicitudArticulos.Where(a => a.Id == ordenCompra.SolicitudArticulosId).FirstOrDefault();
+                Articulos articulo = db.Articulos.Where(a => a.Id == solicitudArticulo.ArticulosId).FirstOrDefault();
+
                 articulo.Existencia += ordenCompra.Cantidad;
                 db.SaveChanges();
                 return RedirectToAction("Index");

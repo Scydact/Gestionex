@@ -35,7 +35,7 @@ namespace Gestionex.Models
         [DefaultValue(true)]
         public bool Estado { get; set; }
 
-        public string Resumen { get => $"{Articulo.Nombre} ({Cantidad}) - {Empleado.Nombre}"; }
+        public string Resumen { get => $"[{Fecha:yyyy-MM-dd}] {Articulo.Nombre} ({Cantidad} {Articulo.UnidadMedida.Nombre}) - Empleado {Empleado.Nombre} {Empleado.Apellido}"; }
     
         public virtual Articulos Articulo { get; set; }
         public virtual Empleados Empleado { get; set; }
