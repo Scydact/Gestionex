@@ -37,6 +37,7 @@ namespace Gestionex.Controllers
         }
 
         // GET: Proveedores/Create
+        [Authorize(Roles = "Administrador, Empleado")]
         public ActionResult Create()
         {
             return View();
@@ -63,6 +64,7 @@ namespace Gestionex.Controllers
         }
 
         // GET: Proveedores/Edit/5
+        [Authorize(Roles = "Administrador, Empleado")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -97,6 +99,7 @@ namespace Gestionex.Controllers
         }
 
         // GET: Proveedores/Delete/5
+        [Authorize(Roles = "Administrador, Empleado")]
         public ActionResult Delete(int? id)
         {
             if (id == null)

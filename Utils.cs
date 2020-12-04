@@ -36,7 +36,7 @@ namespace Gestionex
             if (vnTotal % 10 == 0)
                 return "";
             else
-                return $"El digito de confirmación no es el correcto ({vnTotal % 10})";
+                return $"El digito de confirmación no es el correcto ({(Int32.Parse(vcCedula.Substring(pLongCed - 1, 1)) + 100 - vnTotal) % 10})";
         }
     }
 }

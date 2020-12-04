@@ -37,6 +37,7 @@ namespace Gestionex.Controllers
         }
 
         // GET: UnidadMedidas/Create
+        [Authorize]
         public ActionResult Create()
         {
             return View();
@@ -60,6 +61,7 @@ namespace Gestionex.Controllers
         }
 
         // GET: UnidadMedidas/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -91,6 +93,7 @@ namespace Gestionex.Controllers
         }
 
         // GET: UnidadMedidas/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)

@@ -349,7 +349,7 @@ namespace Gestionex.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult SetRole(SetRoleViewModel model)
+        public async Task<ActionResult> SetRole(SetRoleViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -361,19 +361,20 @@ namespace Gestionex.Controllers
                     try
                     {
                         if (!string.IsNullOrEmpty(model.OldRole))
-                            UserManager.RemoveFromRole(user.Id, model.OldRole);
-                        if (!string.IsNullOrEmpty(model.OldRole))
-                            UserManager.AddToRole(user.Id, model.NewRole);
+                            await UserManager.RemoveFromRoleAsync(user.Id, model.OldRole);
+                        if (!string.IsNullOrEmpty(model.NewRole))
+                            await UserManager.AddToRoleAsync(user.Id, model.NewRole);
                     }
                     catch(System.InvalidOperationException)
                     {
                         return View();
                     }
 
-                    SignInManager.SignIn(user, isPersistent: false, rememberBrowser: false);
+                    // Relog the user to properly set the role on [Authorize] decorators
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                 }
             }
-            return SetRole();
+            return RedirectToAction("Index", "Manage");
         }
 
 

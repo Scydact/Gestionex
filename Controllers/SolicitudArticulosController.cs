@@ -37,6 +37,7 @@ namespace Gestionex.Controllers
         }
 
         // GET: SolicitudArticulos/Create
+        [Authorize(Roles = "Administrador, Empleado")]
         public ActionResult Create()
         {
             ViewBag.ArticulosId = new SelectList(db.Articulos, "Id", "Nombre");
@@ -64,6 +65,7 @@ namespace Gestionex.Controllers
         }
 
         // GET: SolicitudArticulos/Edit/5
+        [Authorize(Roles = "Administrador, Empleado")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -99,6 +101,7 @@ namespace Gestionex.Controllers
         }
 
         // GET: SolicitudArticulos/Delete/5
+        [Authorize(Roles = "Administrador, Empleado")]
         public ActionResult Delete(int? id)
         {
             if (id == null)

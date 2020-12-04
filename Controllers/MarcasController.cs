@@ -37,6 +37,7 @@ namespace Gestionex.Controllers
         }
 
         // GET: Marcas/Create
+        [Authorize]
         public ActionResult Create()
         {
             ViewBag.ProveedoresId = new SelectList(db.Proveedores, "Id", "NombreComercial");
@@ -62,6 +63,7 @@ namespace Gestionex.Controllers
         }
 
         // GET: Marcas/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -95,6 +97,7 @@ namespace Gestionex.Controllers
         }
 
         // GET: Marcas/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)

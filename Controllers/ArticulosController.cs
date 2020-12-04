@@ -38,6 +38,7 @@ namespace Gestionex.Controllers
         }
 
         // GET: Articulos/Create
+        [Authorize]
         public ActionResult Create()
         {
             ViewBag.UnidadMedidaId = new SelectList(db.UnidadMedidas, "Id", "Nombre");
@@ -65,6 +66,7 @@ namespace Gestionex.Controllers
         }
 
         // GET: Articulos/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -100,6 +102,7 @@ namespace Gestionex.Controllers
         }
 
         // GET: Articulos/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
