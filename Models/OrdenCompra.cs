@@ -33,7 +33,9 @@ namespace Gestionex.Models
         public int SolicitudArticulosId { get; set; }
         [DefaultValue(true)]
         public bool Estado { get; set; }
-    
+        [DataType(DataType.Currency)]
+        public double CostoTotal { get => CostoUnitario * Cantidad; }
+
         public virtual SolicitudArticulos SolicitudArticulo { get; set; }
     }
 }
