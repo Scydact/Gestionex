@@ -23,7 +23,7 @@ namespace Gestionex
                       "~/Scripts/bootstrap.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
+                      //"~/Content/bootstrap.css",
                       "~/Content/bootstrap-theme.css",
                       //"~/Content/theme.css",
                       "~/Content/site.css"));

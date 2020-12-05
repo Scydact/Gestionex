@@ -8,18 +8,20 @@
 
 <h2>@ViewBag.Title</h2>
 
-<form method="get">
-    <input type="text" id="Criterio" name="Criterio" value="@ViewBag.Criterio" />
-    <input type="submit" id="cmdBuscar" value="Buscar" />
+<form method="get" class="md-form input-group col-xs-5">
+    <input type="text" id="Criterio" name="Criterio" value="@ViewBag.Criterio" placeholder="Buscar" class="form-control" />
+    <div class="input-group-btn">
+        <input type="submit" id="cmdBuscar" value="Buscar" class="btn btn-primary"/>
+    </div>
 </form>
 
 
 <p>
     @if (canEdit)
     {
-        <span>@Html.ActionLink("Crear nuevo", "Create") | </span>
+        @Html.ActionLink("Crear nuevo", "Create", null, new { @class = "btn btn-primary" })
     }
-    @Html.ActionLink("Exportar Excel", "ExportarExcel")
+    @Html.ActionLink("Exportar Excel", "ExportarExcel", null, new { @class = "btn btn-success" })
 </p>
 
 <table class="table">

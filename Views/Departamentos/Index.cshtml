@@ -9,9 +9,9 @@
 
 <p>
     @if (isAdmin) {
-    <span>@Html.ActionLink("Crear nuevo", "Create") | </span>
+        @Html.ActionLink("Crear nuevo", "Create", null, new { @class = "btn btn-primary" })
      }
-    @Html.ActionLink("Exportar Excel", "ExportarExcel")
+    @Html.ActionLink("Exportar Excel", "ExportarExcel", null, new { @class = "btn btn-success" })
 </p>
 <table class="table">
     <tr>

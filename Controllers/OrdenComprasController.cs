@@ -30,6 +30,7 @@ namespace Gestionex.Controllers
                 || p.SolicitudArticulo.Empleado.Apellido.Contains(Criterio)
             );
             ViewBag.Criterio = Criterio;
+            ViewBag.AllowNew = db.SolicitudArticulos.Where(a => !a.Estado).Count() > 0;
             return View(ordenCompras.ToList());
         }
 
@@ -54,7 +55,7 @@ namespace Gestionex.Controllers
             var Solicitudes = db.SolicitudArticulos.Where(a => !a.Estado);
             ViewBag.SolicitudArticulosId = new SelectList(Solicitudes, "Id", "Resumen");
 
-            int primeraCantidad = Solicitudes.FirstOrDefault().Cantidad;
+            int primeraCantidad = (Solicitudes.FirstOrDefault() != null) ? Solicitudes.FirstOrDefault().Cantidad : 1;
             var ComprasDb = db.OrdenCompras.ToList().LastOrDefault();
             var NumOrden = (ComprasDb!=null) ? ComprasDb.NumeroOrden + 1 : 1;
             var oc = new OrdenCompra { Cantidad = primeraCantidad, Fecha = DateTime.Now, NumeroOrden = NumOrden };
