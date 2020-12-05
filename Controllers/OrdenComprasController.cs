@@ -16,9 +16,20 @@ namespace Gestionex.Controllers
         private Model1Container db = new Model1Container();
 
         // GET: OrdenCompras
-        public ActionResult Index()
+        public ActionResult Index(string Criterio = null)
         {
-            var ordenCompras = db.OrdenCompras.Include(o => o.SolicitudArticulo);
+            //var ordenCompras = db.OrdenCompras.Include(o => o.SolicitudArticulo);
+            var ordenCompras = db.OrdenCompras
+                .Where(p => Criterio == null
+                || p.Fecha.ToString().Contains(Criterio)
+                || p.NumeroOrden.ToString().StartsWith(Criterio)
+                //|| p.SolicitudArticulo.Resumen.Contains(Criterio)
+                || p.SolicitudArticulo.Articulo.Nombre.Contains(Criterio)
+                || p.SolicitudArticulo.Articulo.Marca.Nombre.Contains(Criterio)
+                || p.SolicitudArticulo.Empleado.Nombre.Contains(Criterio)
+                || p.SolicitudArticulo.Empleado.Apellido.Contains(Criterio)
+            );
+            ViewBag.Criterio = Criterio;
             return View(ordenCompras.ToList());
         }
 

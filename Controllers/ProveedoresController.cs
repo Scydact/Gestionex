@@ -16,9 +16,16 @@ namespace Gestionex.Controllers
         private Model1Container db = new Model1Container();
 
         // GET: Proveedores
-        public ActionResult Index()
+        public ActionResult Index(string Criterio = null)
         {
-            return View(db.Proveedores.ToList());
+            //var proveedores = db.Proveedores
+            var proveedores = db.Proveedores
+                .Where(p => Criterio == null
+                || p.NombreComercial.Contains(Criterio)
+                || p.Cedula.Contains(Criterio)
+                );
+            ViewBag.Criterio = Criterio;
+            return View(proveedores.ToList());
         }
 
         // GET: Proveedores/Details/5
