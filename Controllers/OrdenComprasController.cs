@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -39,8 +40,14 @@ namespace Gestionex.Controllers
         // GET: OrdenCompras/Create
         public ActionResult Create()
         {
-            ViewBag.SolicitudArticulosId = new SelectList(db.SolicitudArticulos, "Id", "Resumen");
-            return View();
+            var Solicitudes = db.SolicitudArticulos.Where(a => !a.Estado);
+            ViewBag.SolicitudArticulosId = new SelectList(Solicitudes, "Id", "Resumen");
+
+            int primeraCantidad = Solicitudes.FirstOrDefault().Cantidad;
+            var ComprasDb = db.OrdenCompras.ToList().LastOrDefault();
+            var NumOrden = (ComprasDb!=null) ? ComprasDb.NumeroOrden + 1 : 1;
+            var oc = new OrdenCompra { Cantidad = primeraCantidad, Fecha = DateTime.Now, NumeroOrden = NumOrden };
+            return View(oc);
         }
 
         // POST: OrdenCompras/Create
@@ -56,9 +63,19 @@ namespace Gestionex.Controllers
                 SolicitudArticulos solicitudArticulo = db.SolicitudArticulos.Where(a => a.Id == ordenCompra.SolicitudArticulosId).FirstOrDefault();
                 Articulos articulo = db.Articulos.Where(a => a.Id == solicitudArticulo.ArticulosId).FirstOrDefault();
 
-                articulo.Existencia += ordenCompra.Cantidad;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ordenCompra.Cantidad > articulo.Existencia)
+                    ModelState.AddModelError("Cantidad", $"Cantidad excede el inventario ({articulo.Existencia})");
+                
+                if (ModelState.IsValid)
+                {
+                    solicitudArticulo.Estado = true;
+                    articulo.Existencia -= ordenCompra.Cantidad;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+
+                ViewBag.SolicitudArticulosId = new SelectList(db.SolicitudArticulos.Where(a => !a.Estado), "Id", "Resumen");
+                return View(ordenCompra);
             }
 
             ViewBag.SolicitudArticulosId = new SelectList(db.SolicitudArticulos, "Id", "Resumen", ordenCompra.SolicitudArticulosId);
@@ -94,8 +111,11 @@ namespace Gestionex.Controllers
                 int old = originalOrdenCompra.Cantidad;
 
                 db.Entry(ordenCompra).State = System.Data.Entity.EntityState.Modified;
-                Articulos articulo = db.Articulos.Where(a => a.Id == ordenCompra.SolicitudArticulosId).FirstOrDefault();
-                articulo.Existencia += -old + ordenCompra.Cantidad;
+                SolicitudArticulos solicitudArticulo = db.SolicitudArticulos.Where(a => a.Id == ordenCompra.SolicitudArticulosId).FirstOrDefault();
+                Articulos articulo = db.Articulos.Where(a => a.Id == solicitudArticulo.ArticulosId).FirstOrDefault();
+
+
+                articulo.Existencia -= -old + ordenCompra.Cantidad;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -124,8 +144,13 @@ namespace Gestionex.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             OrdenCompra ordenCompra = db.OrdenCompras.Find(id);
-            Articulos articulo = db.Articulos.Where(a => a.Id == ordenCompra.SolicitudArticulosId).FirstOrDefault();
-            articulo.Existencia -= ordenCompra.Cantidad;
+            SolicitudArticulos solicitudArticulo = db.SolicitudArticulos.Where(a => a.Id == ordenCompra.SolicitudArticulosId).FirstOrDefault();
+            Articulos articulo = db.Articulos.Where(a => a.Id == solicitudArticulo.ArticulosId).FirstOrDefault();
+
+
+            solicitudArticulo.Estado = false;
+
+            articulo.Existencia += ordenCompra.Cantidad;
             db.OrdenCompras.Remove(ordenCompra);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -138,6 +163,44 @@ namespace Gestionex.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public ActionResult ExportarExcel()
+        {
+            string filename = "Ordenes de compra.csv";
+            string filepath = @"C:\tmp\" + filename;
+            StreamWriter sw = new StreamWriter(filepath);
+            sw.WriteLine("id_orden,nombre proveedor, cedula/rnc proveedor, no. de orden, fecha, solicitud de articulo, cantidad, costo por unidad, costo total, estado"); //Encabezado 
+            foreach (var orden in db.OrdenCompras.ToList())
+            {
+                var proveedor = orden.SolicitudArticulo.Articulo.Marca.Proveedor;
+                string[] elementos = { 
+                    orden.Id.ToString(),
+                    proveedor.NombreComercial,
+                    proveedor.Cedula, 
+                    orden.NumeroOrden.ToString(),
+                    orden.Fecha.ToShortDateString(),
+                    orden.SolicitudArticulo.Resumen,
+                    orden.Cantidad.ToString(),
+                    orden.CostoUnitario.ToString(),
+                    orden.CostoTotal.ToString(),
+                    orden.Estado.ToString() };
+                sw.WriteLine(string.Join(",", elementos));
+            }
+            sw.Close();
+
+            byte[] filedata = System.IO.File.ReadAllBytes(filepath);
+            string contentType = MimeMapping.GetMimeMapping(filepath);
+
+            var cd = new System.Net.Mime.ContentDisposition
+            {
+                FileName = filename,
+                Inline = false,
+            };
+
+            Response.AppendHeader("Content-Disposition", cd.ToString());
+
+            return File(filedata, contentType);
         }
     }
 }

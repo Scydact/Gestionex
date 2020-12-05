@@ -10,8 +10,9 @@
 <p>
     @if (canEdit)
     {
-        <span>@Html.ActionLink("Crear nuevo", "Create")</span>
+        <span>@Html.ActionLink("Crear nuevo", "Create") | </span>
     }
+    @Html.ActionLink("Exportar Excel", "ExportarExcel")
 </p>
 <table class="table">
     <tr>
