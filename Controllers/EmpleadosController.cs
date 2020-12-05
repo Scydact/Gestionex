@@ -17,9 +17,16 @@ namespace Gestionex.Controllers
         private Model1Container db = new Model1Container();
 
         // GET: Empleados
-        public ActionResult Index()
+        public ActionResult Index(string Criterio = null)
         {
-            var empleados = db.Empleados.Include(e => e.Departamento);
+            //var empleados = db.Empleados.Include(e => e.Departamento);
+            var empleados = db.Empleados
+                .Where(p => Criterio == null 
+                || p.Nombre.Contains(Criterio) 
+                || p.Apellido.Contains(Criterio)
+                || p.Cedula.Contains(Criterio)
+                );
+            ViewBag.Criterio = Criterio;
             return View(empleados.ToList());
         }
 

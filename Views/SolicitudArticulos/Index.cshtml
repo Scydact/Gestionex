@@ -6,11 +6,15 @@
 }
 
 <h2>@ViewBag.Title</h2>
+<form method="get">
+    <input type="text" id="Criterio" name="Criterio" value="@ViewBag.Criterio" />
+    <input type="submit" id="cmdBuscar" value="Buscar" />
+</form>
 
 <p>
     @if (canEdit)
     {
-        <span>@Html.ActionLink("Crear nuevo", "Create") | </span>
+        <span>@Html.ActionLink("Crear nuevo", "Create")</span>
     }
 </p>
 <table class="table">
@@ -33,38 +37,39 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Fecha)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cantidad)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Estado)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Articulo.Nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Empleado.Nombre)
-        </td>
-        <td>
-            @if (canEdit)
-            {
-                <span>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                </span>
-            }
-            else
-            {
-                <span>@Html.ActionLink("Details", "Details", new { id = item.Id })</span>
-            }
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fecha)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cantidad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Estado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Articulo.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Empleado.Nombre)
+            </td>
+            <td>
+                @if (canEdit)
+                {
+                    <span>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    </span>
+                }
+                else
+                {
+                    <span>@Html.ActionLink("Details", "Details", new { id = item.Id })</span>
+                }
+            </td>
+        </tr>
+    }
 
 </table>

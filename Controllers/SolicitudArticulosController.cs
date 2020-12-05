@@ -15,9 +15,17 @@ namespace Gestionex.Controllers
         private Model1Container db = new Model1Container();
 
         // GET: SolicitudArticulos
-        public ActionResult Index()
+        public ActionResult Index(string Criterio = null)
         {
-            var solicitudArticulos = db.SolicitudArticulos.Include(s => s.Articulo).Include(s => s.Empleado);
+            //var solicitudArticulos = db.SolicitudArticulos.Include(s => s.Articulo).Include(s => s.Empleado);
+            var solicitudArticulos = db.SolicitudArticulos
+                .Where(p => Criterio == null
+                || p.Fecha.ToString().Contains(Criterio)
+                || p.Cantidad.ToString().Contains(Criterio)
+                || p.Articulo.Nombre.Contains(Criterio)
+                || p.Empleado.Nombre.Contains(Criterio)
+                );
+            ViewBag.Criterio = Criterio;
             return View(solicitudArticulos.ToList());
         }
 

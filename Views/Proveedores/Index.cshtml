@@ -6,6 +6,10 @@
 }
 
 <h2>@ViewBag.Title</h2>
+<form method="get">
+    <input type="text" id="Criterio" name="Criterio" value="@ViewBag.Criterio" />
+    <input type="submit" id="cmdBuscar" value="Buscar" />
+</form>
 
 <p>
     @if (canEdit)
@@ -27,32 +31,33 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cedula)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NombreComercial)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Estado)
-        </td>
-        <td>
-            @if (canEdit)
-            {
-                <span>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                </span>
-            }
-            else
-            {
-                <span>@Html.ActionLink("Details", "Details", new { id = item.Id })</span>
-            }
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cedula)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreComercial)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Estado)
+            </td>
+            <td>
+                @if (canEdit)
+                {
+                    <span>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    </span>
+                }
+                else
+                {
+                    <span>@Html.ActionLink("Details", "Details", new { id = item.Id })</span>
+                }
+            </td>
+        </tr>
+    }
 
 </table>
