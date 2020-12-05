@@ -26,7 +26,7 @@ namespace Gestionex.Models
         [DisplayName("Artículo")]
         [Required]
         public string Nombre { get; set; }
-        [Range(0,1000000)]
+        [Range(0,10000000)]
         [Required]
         public int Existencia { get; set; }
         public string Descripcion { get; set; }

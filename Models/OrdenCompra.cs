@@ -25,6 +25,7 @@ namespace Gestionex.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public System.DateTime Fecha { get; set; }
         [Required]
+        [Range(0, 10000000)]
         public int Cantidad { get; set; }
         [DisplayName("Costo por unidad")]
         [Required]
